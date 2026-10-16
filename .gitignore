@@ -1,0 +1,23 @@
+## .NET build outputs
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## NuGet
+*.nupkg
+*.snupkg
+
+## Environment / secrets
+.env
+appsettings.Development.json
+
+## OS / editor
+.DS_Store
+Thumbs.db
+*~
+
+## Test artifacts
+TestResults/
+coverage*/
