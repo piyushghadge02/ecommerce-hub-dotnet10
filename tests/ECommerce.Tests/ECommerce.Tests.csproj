@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.13" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.21.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ECommerce.Api\ECommerce.Api.csproj" />
+  </ItemGroup>
+
+  <!--
+    Robustness: some SDK installs don't place testhost.runtimeconfig.json next to
+    testhost.dll, which makes 'dotnet test' hang waiting for the test host.
+    Generate it if missing so the test run is self-contained.
+  -->
+  <Target Name="EnsureTestHostRuntimeConfig" AfterTargets="Build"
+          Condition="!Exists('$(OutputPath)testhost.runtimeconfig.json')">
+    <WriteLinesToFile
+      File="$(OutputPath)testhost.runtimeconfig.json"
+      Lines='{"runtimeOptions":{"tfm":"net10.0","rollForward":"LatestMajor","framework":{"name":"Microsoft.NETCore.App","version":"10.0.0"}}}'
+      Overwrite="true" />
+  </Target>
+
+</Project>
